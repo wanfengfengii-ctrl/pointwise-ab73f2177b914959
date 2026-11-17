@@ -1,8 +1,7 @@
 from dataclasses import dataclass
-from fractions import Fraction
 from .design import build_design
 from .projection import residualize_design
-from .groups import aggregate_group_scores, GroupAffineScore
+from .groups import aggregate_group_scores
 
 
 @dataclass(frozen=True)
@@ -44,13 +43,10 @@ def validate_score_bundle(bundle):
 def build_score_bundle(cohort):
     design = build_design(cohort)
     residual = residualize_design(design)
+    # Joint instrument coordinates are carried unchanged through processing
+    # and the test; pooling them would break invertible tool transformations.
     scores = aggregate_group_scores(residual)
     dimension = len(design.z)
-    if dimension > 1:
-        # Carry a pooled instrument index in the original coordinate envelope.
-        def pooled(values):
-            return (sum(values, Fraction(0)) / dimension,) + (Fraction(0),) * (dimension - 1)
-        scores = tuple(GroupAffineScore(s.group, pooled(s.a), pooled(s.d)) for s in scores)
     bundle = ScoreBundle(design.cohort_id, design.roles, design.row_revisions, design.groups,
                          dimension, residual.nuisance_rank, residual.tool_rank, scores)
     validate_score_bundle(bundle)
