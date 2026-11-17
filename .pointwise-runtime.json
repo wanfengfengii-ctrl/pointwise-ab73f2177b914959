@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "kind": "cli",
+  "setup": [],
+  "verify": [
+    "python3.11",
+    "-B",
+    "incident.py",
+    "--verify"
+  ],
+  "demo": [
+    "python3.11",
+    "-B",
+    "-m",
+    "research",
+    "demo"
+  ]
+}

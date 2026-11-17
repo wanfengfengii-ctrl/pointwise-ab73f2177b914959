@@ -1,0 +1,28 @@
+{
+  "disconnected": {
+    "threshold": "3/2",
+    "revisions": [
+      {"row_id": "a", "revision": 1, "payload": {"values": {"y": 1, "x": 0, "z": 1}, "group": "A"}},
+      {"row_id": "b", "revision": 1, "payload": {"values": {"y": 0, "x": -1, "z": 1}, "group": "B"}}
+    ],
+    "spec": {"row_ids": ["a", "b"], "y": "y", "x": "x", "z": ["z"], "w": []},
+    "hand_calculation": "T(b)=(1+b)^2/(1+b^2). T<=3/2 iff b^2-4b+1>=0; closed endpoints 2-sqrt(3), 2+sqrt(3)."
+  },
+  "singleton": {
+    "threshold": "1/2",
+    "revisions": [
+      {"row_id": "one", "revision": 1, "payload": {"values": {"y": 0, "x": 1, "z": 1}, "group": 1}}
+    ],
+    "spec": {"row_ids": ["one"], "y": "y", "x": "x", "z": ["z"], "w": []},
+    "hand_calculation": "T(0)=0; T(b)=1 for b!=0. Accepted set is {0}."
+  },
+  "projection": {
+    "threshold": "3/2",
+    "revisions": [
+      {"row_id": 1, "revision": 1, "payload": {"values": {"y": 1, "x": 0, "z": 1, "w": 1, "w2": 2}, "group": 1}},
+      {"row_id": 2, "revision": 1, "payload": {"values": {"y": 2, "x": 0, "z": 0, "w": 1, "w2": 2}, "group": 2}}
+    ],
+    "spec": {"row_ids": [1, 2], "y": "y", "x": "x", "z": ["z"], "w": ["w", "w2"]},
+    "hand_calculation": "Residual y=(-1/2,1/2), Z=(1/2,-1/2). Both group scores -1/4. T=2; empty set."
+  }
+}
